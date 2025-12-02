@@ -1,0 +1,15 @@
+
+{
+  "Key1": "Raj",
+  "Key2": [{},{},{}]
+  "Key3": {},
+  "Key4" : 12,
+  "Key5" : true,
+  "Key6" : null
+
+}
+
+
+array - []
+object - {}
+object array - [{}, {},{}]

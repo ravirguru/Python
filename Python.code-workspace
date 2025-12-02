@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../reqres_api_framework"
+		},
+		{
+			"name": "VS-PythonPrgms",
+			"path": "../GitRepos/VS-PythonPrgms"
+		}
+	]
+}

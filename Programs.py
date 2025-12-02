@@ -165,3 +165,86 @@ s = "helloworld"
 
 res = { ch: s.count(ch) for ch in s if s.count(ch) > 1}
 print(res)
+
+any_string3 = "Sonicwall 99.5.6.9  Ivanti 34.56.9.0"
+pattern2 = r"\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\."\
+           r"\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\." \
+           r"\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\." \
+           r"\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])"
+
+ips = re.findall(pattern2, any_string3)
+print(ips)
+res = { "ip" :   [ ".".join(ip) for ip in ips]} if ips else "Not a valid IP"
+print(res)
+
+
+class Employee:
+    def __init__(self,fname, lastname):
+        self.fname = fname
+        self.lastname = lastname
+
+    @property
+    def fname(self):
+        return self._fname
+    @fname.setter
+    def fname(self,value):
+        if len(value) < 3:
+            raise ValueError("firstname requires atleast 3 characters as input")
+        self._fname = value
+    @property #return only for getter method.
+    def lastname(self):
+        return self._lastname
+    @lastname.setter  # for setter method your not returning anything.
+    def lastname(self,value):
+        if len(value) < 5:
+            raise ValueError(f"Minimum lastname characters should be 5")
+        self._lastname = value
+
+
+e = Employee("raaj","guruu")
+print(e.__dict__)
+print(e.fname)
+print(e.fname)
+
+def outer(func):
+    def wrapper(*args,**kwargs):
+        print(f"starting function: {func.__name__}")
+        res = func(*args,**kwargs)
+        print(f"Finished function: {func.__name__}")
+        return res
+    return wrapper
+
+@outer
+def greet(message):
+    print("{greet} Hi Goodmorning")
+
+print(greet("greet"))
+
+s2="Jackie"
+def convert_l_u_vv(any_string):
+    li = []
+    for ch in any_string:
+        temp = ord(ch)
+        if 65 <= temp <= 90:
+            li.append(chr(temp+32))
+        elif 97 <= temp <= 122:
+            li.append(chr(temp-32))
+        else:
+            li.append(ch)
+    return ''.join(li) 
+print(convert_l_u_vv(s2))
+
+s3="Jackie"
+
+def convert_l1_u_vv(any_string):
+    li = []
+    for ch in any_string:
+        temp = ch
+        if 'a' <= temp <= 'z':
+            li.append(chr(ord(temp)-32))
+        elif 'A' <= temp <= 'Z':
+            li.append(chr(ord(temp)+32))
+        else:
+            li.append(ch)
+    return ''.join(li) 
+print(convert_l1_u_vv(s3))
