@@ -44,5 +44,59 @@ print(result)
 result2 = findall(r"https?","http://www.google.com")
 print(result2)
 
+# Matching for email address in a given string.
+# s = "abc@def.com, jkl@ert.com, mno@pqsrt.com, office@xyz.co.in, newone@gmail.org, ghi-123 
+# findall(r"[\w\.-]+@[\w\.-]+(?:com|in|org)",s)  
+#  o/p: 'jkl@ert.com',      
+#  'mno@pqsrt.com',    
+#  'jkl@ert.com',
+#  'mno@pqsrt.com',
+#  'office@xyz.co.in',
+#  'newone@gmail.org']
+# [^a-zA-Z0-9]  this is negation.. except a-zA-Z0-9 match others like spl characters.
+d={}
+for ch in (findall(r"[^a-zA-Z0-9]","hello@world how are you!!!! the %$&COST**** OF THE book \
+                   is $100....")):
+    d[ch] = d.get(ch,0) + 1
+print(d)
+#O/P -> {'@': 1, ' ': 19, '!': 4, '%': 1, '$': 2, '&': 1, '*': 4, '.': 4}
+#\w = [a-zA-Z0-9_]
+#\d = [0-9]
+#Find String at the beginning or at the end of string.
+findall(r"^hello$", "hi hello how are you hello")
+#o/p []
+findall(r"hello$", "hi hello how are you hello")
+#o/p ['hello']
+findall(r"hello$", "hello")
+#o/p ['hello']
 
+#word boundary
+# \b - Any transition b/w a word character and non-word character or 
+#  non-word character to word character is called word boundary.
+# [a-zA-Z0-9_]
 
+#program for counting leading and trailing whitespaces.
+def count_leading_trailing_spaces(somestring: str)->list:
+    leading_white_spaces = len(findall(r"^\s+",somestring)[0])
+    trailing_white_spaces = len(findall(r"\s+$",somestring)[0])
+    return (leading_white_spaces,trailing_white_spaces)
+
+print(count_leading_trailing_spaces("     This is for test checking only    "))
+
+#program for find three or 3 digit number.
+line = "878 hello there 2788999 hello world welcome to python 665"
+res1 = findall(r"\d{3}$", line)
+print(res1)
+
+#program for finding 6 digit pincode number.
+pincode = "Pincode of Bangalore 560085 your mobile number is 1234567890"
+p_code = findall(r"\b\d{6}\b",pincode)
+print(p_code)
+
+#program for matching phone numbers of type 800-865-4456 etc.
+phone_numbers = "This is a string 900-987-1923 and hello there 800-776-0097 and 700-987-9876"
+findall(r"\d",phone_numbers)
+findall(r"\d+",phone_numbers)
+findall(r"\d{3}-\d{3}-\d{4}",phone_numbers)
+group = findall(r"[89]00-\d{3}-\d{4}",phone_numbers) # To match only phone numbers from 800 or 900.
+print(group)
