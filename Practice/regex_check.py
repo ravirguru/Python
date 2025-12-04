@@ -100,3 +100,31 @@ findall(r"\d+",phone_numbers)
 findall(r"\d{3}-\d{3}-\d{4}",phone_numbers)
 group = findall(r"[89]00-\d{3}-\d{4}",phone_numbers) # To match only phone numbers from 800 or 900.
 print(group)
+
+So what's the real difference?
+Pattern	What it returns	Why
+(?=bc)	['']	Lookahead match has length zero (no capturing group)
+(?=(bc))	['bc']	Group (bc) captures the text matched inside the lookahead
+
+# Simple explanation
+# Without capturing group:
+# (?=bc)
+# ✔ Lookahead true
+# ✖ Returns nothing → gives empty string
+# With capturing group:
+# (?=(bc))Simple explanation
+# Without capturing group:
+# (?=bc)
+# ✔ Lookahead true
+# ✖ Returns nothing → gives empty string
+# With capturing group:
+# (?=(bc))
+# ✔ Lookahead true
+# ✔ (bc) is captured
+# → findall() returns the captured text
+# 🧠 Handy Rule
+# Lookahead alone → always returns ''
+# Lookahead + capturing group → returns the captured text
+# Example:
+# (?=(xyz)) → returns 'xyz'
+# (?=xyz)   → returns ''
