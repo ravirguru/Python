@@ -101,10 +101,22 @@ findall(r"\d{3}-\d{3}-\d{4}",phone_numbers)
 group = findall(r"[89]00-\d{3}-\d{4}",phone_numbers) # To match only phone numbers from 800 or 900.
 print(group)
 
-So what's the real difference?
-Pattern	What it returns	Why
-(?=bc)	['']	Lookahead match has length zero (no capturing group)
-(?=(bc))	['bc']	Group (bc) captures the text matched inside the lookahead
+# 📌 Summary Table
+# Syntax	Meaning
+# (abc)	capturing group
+# (?:abc)	non-capturing group
+# (?=abc)	lookahead
+# (?!abc)	negative lookahead
+# (?<=abc)	lookbehind
+# (?<!abc)	negative lookbehind
+# ✔ Final Explanation
+# (?:com|in|org) means:
+# "Match com or in or org, but don’t capture it as a separate group"
+# ✅ (?: ... ) = Non-capturing group
+# So what's the real difference?
+# Pattern	What it returns	Why
+# (?=bc)	['']	Lookahead match has length zero (no capturing group)
+# (?=(bc))	['bc']	Group (bc) captures the text matched inside the lookahead
 
 # Simple explanation
 # Without capturing group:
@@ -127,4 +139,72 @@ Pattern	What it returns	Why
 # Lookahead + capturing group → returns the captured text
 # Example:
 # (?=(xyz)) → returns 'xyz'
-# (?=xyz)   → returns ''
+# (?=xyz)   → returns '
+
+s = "iam loVE Python" # iam LOve pYTHON
+li = []
+for word in s.split():
+    new_word = ""  # Gets reset for each word here.
+    for ch in word:
+        if s[0] == ch:
+            new_word +=ch
+        elif ch.islower():
+            new_word += ch.upper()
+        else:
+            #ch.isupper()
+            new_word += ch.lower()
+    li.append(new_word) 
+print(' '.join(li))     
+
+s = "iam loVE Python" # iam LOve pYTHON
+# new=""
+# for i in s:
+#     if s[1]==i:
+#         new+=i
+#     elif i in i.upper():
+#         new+=i.lower()
+#     else:
+#         new+=i.upper()
+
+# print(new)
+
+words = "iam loVE Python"
+
+li2 = []
+for word in words.split():
+    new_ch= ""
+    for ch in word:
+        if word[0] == ch:
+            new_ch += ch
+        elif ch.isupper():
+            new_ch += ch.lower()
+        else:
+            new_ch += ch.upper()
+    li2.append(new_ch)
+    
+print(" ".join(li2))
+
+#8-12-2025
+import re
+#def replace_repeated_string(any_string: str) -> str: return re.sub(r"\b(\w+)(\s+\1)+\b", r"\1", any_string)  \
+# beware of the space in pattern matching after X (\w+) (\s+\1) (\w+)(\s+\1).
+def replace_repeated_string(any_string: str) -> str: return re.sub(r"\b(\w+) \1+\b", r"\1", any_string)  
+print(replace_repeated_string("hello hello world"))
+print(replace_repeated_string("hi hi bye bye ok ok"))
+#In [29]: re.findall(r"(\w+) \1", "bye bye hi hi ok ok")
+#Out[29]: ['bye', 'hi', 'ok']
+# But findall returns:
+# ONLY the captured groups
+# Not the whole match
+# Not the repeated word
+# So for this match:
+# (\w+)   → "bye"
+# \1      → "bye" (but not captured, just matched)
+# findall returns only the group, not the repeated copy.
+# ✔ Summary (super important)
+# Thing	What it gives
+# Regex match	whole pattern “bye bye”
+# Group 1	only first word “bye”
+# Backreference \1	matches second “bye” but NEVER returned
+# findall	only returns capturing groups (“bye”, “hi”, “ok”)
+# findall returns only the group, not the repeated copy. so it returns  only bye/hi/ok here.
